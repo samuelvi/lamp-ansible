@@ -1,0 +1,30 @@
+---
+
+# CREATE DATABASE
+- name: mysql | Create databases
+  mysql_db: name={{ mysql_database_demo }} state=present login_user=root login_password={{ mysql_root_password }}
+  sudo: yes
+  register: db_created
+
+
+- name: copy dump sql if does not exist
+  template: src=roles/contents/files/mariadb/{{ mysql_dump_demo }} dest=/tmp/{{ mysql_dump_demo }} force=yes
+
+
+# IMPORT DATA FROM dump file.
+- name: mysql | Import dump for "{{ mysql_dump_demo }}" (if it was created)
+  mysql_db: name={{ mysql_database_demo }} state=import login_user=root login_password={{ mysql_root_password }} target=/tmp/{{ mysql_dump_demo }}
+  when: db_created
+
+
+# CREATE USERS
+- name: mysql | Create users
+  mysql_user: name={{ mysql_user_demo }} host={{ '127.0.0.1' }} password={{ mysql_password_demo }} priv={{ mysql_database_demo }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
+
+- name: mysql | Create users
+  mysql_user: name={{ mysql_user_demo }} host={{ 'localhost' }} password={{ mysql_password_demo }} priv={{ mysql_database_demo }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
+
+
+# Remove Dump file
+- name: remove mysql dump file
+  file: path=/tmp/{{ mysql_dump_demo }} state=absent

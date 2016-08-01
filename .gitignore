@@ -1,0 +1,4 @@
+./private
+playbook.retry
+www_demo/access.log
+www_demo/error.log
