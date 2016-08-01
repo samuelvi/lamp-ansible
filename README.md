@@ -33,7 +33,7 @@ There is a full working Vagrant configuration that allows creating and provision
 
 ### Installation:
 
-    - vagrant up
+    - vagrant up (optional)
     - ansible-playbook --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i ./inventories/demo playbook.yml
 
     If you have any problems when running sudo ./ansible.yml, check your ~/.ssh/known_hosts and remove any entry referemcing 127.0.0.1

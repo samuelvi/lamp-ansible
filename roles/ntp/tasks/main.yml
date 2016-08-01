@@ -4,7 +4,7 @@
   tags: [ 'configuration', 'package', 'service', 'ntp' ]
 
 
-- name: Install the required packages in Debian derivatives
+- name: Install the required packages for Debian
   apt: name=ntp state={{ ntp_pkg_state }}
   tags: [ 'package', 'ntp' ]
 
