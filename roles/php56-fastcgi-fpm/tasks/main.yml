@@ -1,7 +1,8 @@
 ---
 
 - name: repository php56
-  apt_repository: repo='ppa:ondrej/php5-5.6' state=present
+  apt_repository: repo='ppa:ondrej/php' state=present
+
 
 - name: Install libapache2-mod-fastcgi
   apt: pkg={{item}} state=installed update_cache=no
@@ -111,9 +112,10 @@
 - name: disable php (mod_php)
   apache2_module: state=absent name=php5
 
-- name: enable php5-fpm
-  apache2_module: state=present name=php5-fpm
-  ignore_errors: true
+#- name: enable php5-fpm
+#  apache2_module: state=present name='php5-fpm'
+#  ignore_errors: true
+#  sudo: yes
 
 - name: change permissions
   file: path=/var/run/php5-fpm.sock owner={{ web_user }} group={{ web_group }} mode=0666

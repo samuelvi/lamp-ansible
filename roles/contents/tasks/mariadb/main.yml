@@ -2,29 +2,16 @@
 
 # CREATE DATABASE
 - name: mysql | Create databases
-  mysql_db: name={{ mysql_database_demo }} state=present login_user=root login_password={{ mysql_root_password }}
+  mysql_db: name={{ item.value.name }} state=present login_user=root login_password={{ mysql_root_password }}
   sudo: yes
+  with_dict: "{{ databases }}"
   register: db_created
 
-
-- name: copy dump sql if does not exist
-  template: src=roles/contents/files/mariadb/{{ mysql_dump_demo }} dest=/tmp/{{ mysql_dump_demo }} force=yes
-
-
-# IMPORT DATA FROM dump file.
-- name: mysql | Import dump for "{{ mysql_dump_demo }}" (if it was created)
-  mysql_db: name={{ mysql_database_demo }} state=import login_user=root login_password={{ mysql_root_password }} target=/tmp/{{ mysql_dump_demo }}
-  when: db_created
-
-
 # CREATE USERS
-- name: mysql | Create users
-  mysql_user: name={{ mysql_user_demo }} host={{ '127.0.0.1' }} password={{ mysql_password_demo }} priv={{ mysql_database_demo }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
+- name: mysql | Create users for 127.0.0.1
+  mysql_user: host='127.0.0.1' name={{ item.value.user }} password={{ item.value.password }} priv={{ item.value.name }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
+  with_dict: "{{ databases }}"
 
-- name: mysql | Create users
-  mysql_user: name={{ mysql_user_demo }} host={{ 'localhost' }} password={{ mysql_password_demo }} priv={{ mysql_database_demo }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
-
-
-# Remove Dump file
-- name: remove mysql dump file
-  file: path=/tmp/{{ mysql_dump_demo }} state=absent
+- name: mysql | Create users for localhost
+  mysql_user: host='localhost' name={{ item.value.user }} password={{ item.value.password }} priv={{ item.value.name }}.*:ALL state=present login_user=root login_password={{ mysql_root_password }}
+  with_dict: "{{ databases }}"

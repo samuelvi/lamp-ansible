@@ -2,17 +2,26 @@
 
 # VHOST CUSTOM SET UP
 server_name: demo.intranet
-server_alias: '*.demo.intranet'
+server_alias: 'www.demo.intranet'
 directory_index: 'index.php'
-base_path: /var/www/www_demo/
-web_base_path: '{{ base_path }}'
+base_path: /var/www/demo/
+web_base_path: '{{ base_path }}httpdocs'
 vhost_j2_file: vhost.demo.intranet.conf.j2
 vhost_file: vhost.demo.intranet.conf
 
 
 # MARIADB CUSTOM SETUP
-mysql_database_demo:  'demo'
-mysql_user_demo:      'demo'
-mysql_password_demo:  'demo'
+databases:
+    dev_demo:
+        name:     'dev_demo'
+        user:     'dev_demo'
+        password: 'dev_demo'
 
-mysql_dump_demo: demo_dump.sql
+    prod_demo:
+        name:     'prod_demo'
+        user:     'prod_demo'
+        password: 'prod_demo'
+
+mysql_server_id: 1
+mysql_auto_increment_increment: 1
+mysql_auto_increment_offset: 1

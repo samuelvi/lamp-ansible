@@ -1,5 +1,5 @@
 .idea
 .vagrant
 playbook.retry
-www_demo/access.log
-www_demo/error.log
+www/demo/access.log
+www/demo/error.log

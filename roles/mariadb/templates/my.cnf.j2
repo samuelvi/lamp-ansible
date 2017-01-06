@@ -67,9 +67,9 @@ slow_query_log          = 1
 long_query_time         = 2
 log-queries-not-using-indexes
 
-server-id                = {{ mysql_replica[inventory_hostname].server_id }}
-auto-increment-increment = {{ mysql_replica[inventory_hostname].auto_increment_increment }}
-auto-increment-offset    = {{ mysql_replica[inventory_hostname].auto_increment_offset }}
+server-id                = {{ mysql_server_id }}
+auto-increment-increment = {{ mysql_auto_increment_increment }}
+auto-increment-offset    = {{ mysql_auto_increment_offset }}
 log_bin                  = /var/log/mysql/mysql-bin.log
 sync_binlog              = 1
 binlog_format            = ROW

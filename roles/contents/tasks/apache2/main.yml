@@ -18,6 +18,9 @@
     - name: create virtual host file for {{ server_name }} Server Name
       template: src=apache2/{{ vhost_j2_file }} dest=/etc/apache2/sites-available/{{ vhost_file }}
 
+    - name: a2dissite 000-default
+      command: a2dissite 000-default
+
     - name: a2ensite {{ vhost_file }}
       command: a2ensite {{ vhost_file }}
       args:
