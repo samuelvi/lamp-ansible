@@ -38,8 +38,8 @@ There is a full working Vagrant configuration that allows creating and provision
 
     If you have any problems when running sudo ./ansible.yml, check your ~/.ssh/known_hosts and remove any entry referemcing 127.0.0.1
 
-    Right Installation can be checked by browsing: http://localhost:8081
-    Adding demo.intranet with the ip 192.168.10.100 in the OS hosts file, demo site can be checked by accessing: http://demo.intranet
+    Right Installation can be checked by browsing: http://localhost:10080
+    Adding demo.intranet with the ip 192.168.40.100 in the OS hosts file, demo site can be checked by accessing: http://demo.intranet
 
 **Characteristics:**
 
