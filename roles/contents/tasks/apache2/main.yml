@@ -18,6 +18,10 @@
     - name: create virtual host file for {{ server_name }} Server Name
       template: src=apache2/{{ vhost_j2_file }} dest=/etc/apache2/sites-available/{{ vhost_file }}
 
+    - name: Copy index.php to /var/www/html
+      template: src=apache2/index.php.j2 dest=/var/www/html/index.php
+
+
     - name: a2dissite 000-default
       command: a2dissite 000-default
 

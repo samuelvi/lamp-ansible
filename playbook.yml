@@ -11,10 +11,10 @@
     - group_vars/demo/mariadb.yml
     - group_vars/demo/contents.yml
   roles:
-        - mariadb
+      #  - mariadb
         - apache2
         - php56-fastcgi-fpm
-        - xdebug
+      #  - xdebug
         - ntp
         - contents
   tasks:
@@ -25,5 +25,5 @@
     - name: restart apache2
       service: name=apache2 state=restarted
 
-    - name: restart php-fpm
-      service: name={{php_fpm_binary_name}} state=restarted
+    - name: restart {{ php_fpm_service_name }}
+      service: name={{php_fpm_service_name}} state=restarted
